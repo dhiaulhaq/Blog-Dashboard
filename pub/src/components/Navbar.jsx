@@ -18,7 +18,7 @@ export default function Navbar({ setPage }) {
           </div>
           <nav
             id="menu"
-            className="order-last md:order-none items-center flex-grow w-full md:w-auto md:flex justify-end hidden mt-2 md:mt-0"
+            className="justify-end order-last md:order-none items-center flex-grow w-full md:w-auto md:flex hidden mt-2 md:mt-0"
           >
             <a
               onClick={() => setPage("post")}

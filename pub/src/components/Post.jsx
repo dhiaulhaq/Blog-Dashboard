@@ -1,7 +1,7 @@
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 
-export default function Post({ setPage }) {
+export default function Post({ setPage, baseUrl }) {
   return (
     <>
       {/* Navbar */}
