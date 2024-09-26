@@ -4,6 +4,8 @@ import axios from "axios";
 
 export default function Post({ baseUrl }) {
   const [post, setPost] = useState("");
+  const [category, setCategory] = useState("");
+  const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -11,7 +13,11 @@ export default function Post({ baseUrl }) {
     try {
       setLoading(true);
       const { data } = await axios.get(`${baseUrl}/apis/pub/blog/posts/${id}`);
+      console.log(data.data.Category);
+
       setPost(data.data);
+      setCategory(data.data.Category);
+      setUser(data.data.User);
     } catch (error) {
       console.log(error);
     } finally {
@@ -38,16 +44,13 @@ export default function Post({ baseUrl }) {
                 <h1 className="text-3xl text-center font-bold leading-normal text-slate-900 mt-0 mb-3">
                   {post.title}
                 </h1>
-                {/* <div className="text-center">Published by</div>
+                <div className="text-center">Published by {user.username}</div>
                 <div className="text-center">{post.createdAt}</div>
                 <div className="mt-3 text-center">
-                  <a
-                    href="/tags/motive"
-                    className="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-medium text-slate-700 m-0.5"
-                  >
-                    #{post.Category.name}
+                  <a className="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-medium text-slate-700 m-0.5">
+                    #{category.name}
                   </a>
-                </div> */}
+                </div>
                 <div className="mt-10 -mx-7 md:mx-0">
                   <img
                     className="w-full max-w-2xl mx-auto"

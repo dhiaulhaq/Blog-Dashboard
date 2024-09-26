@@ -1,18 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
-
-function handleClick(id) {
-  navigate(`/${post.id}`);
-}
-
 export default function Card({ post }) {
+  const navigate = useNavigate();
+
+  function handleClick(id) {
+    navigate(`/${post.id}`);
+  }
+
   return (
     <>
       <div className="rounded overflow-hidden shadow-lg flex flex-col">
-        <Link to={`/${post.id}`} />
+        {/* <Link to={`/${post.id}`} /> */}
         <div className="relative">
-          <Link to={`/${post.id}`}>
+          <Link onClick={() => handleClick(post.id)}>
             <img
               className="w-full"
               src={post.imgUrl}

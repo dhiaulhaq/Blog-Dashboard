@@ -6,8 +6,10 @@ export default function Home({ baseUrl }) {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("ASC");
   const [filter, setFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [sort, setSort] = useState("ASC");
   const [loading, setLoading] = useState(false);
 
   async function fetchPosts() {
@@ -15,11 +17,12 @@ export default function Home({ baseUrl }) {
       setLoading(true);
 
       const { data } = await axios.get(
-        `${baseUrl}/apis/pub/blog/posts?q=${search}&i=${filter}&sort=${sort}`
+        `${baseUrl}/apis/pub/blog/posts?q=${search}&i=${filter}&limit=9&page=${currentPage}&sort=${sort}`
       );
-      console.log(data.data);
+      console.log(data);
 
       setPosts(data.data.query);
+      setTotalPages(data.data.pagination.totalPage);
     } catch (error) {
       console.log(error);
     } finally {
@@ -27,11 +30,13 @@ export default function Home({ baseUrl }) {
     }
   }
 
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   async function fetchCategories() {
     try {
       const { data } = await axios.get(`${baseUrl}/apis/pub/blog/categories`);
-      console.log(data.data);
-
       setCategories(data.data);
     } catch (error) {
       console.log(error);
@@ -41,7 +46,7 @@ export default function Home({ baseUrl }) {
   useEffect(() => {
     fetchPosts();
     fetchCategories();
-  }, [search, sort, filter]);
+  }, [search, filter, currentPage, sort]);
 
   return (
     <>
@@ -135,36 +140,32 @@ export default function Home({ baseUrl }) {
 
           <div className="mt-10 flow-root">
             <a
-              href="/"
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
               className="float-left bg-white font-semibold py-2 px-4 border rounded shadow-md text-slate-800 cursor-pointer hover:bg-slate-100"
             >
               Previous
             </a>
             <a
-              href="/"
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
               className="float-right bg-white font-semibold py-2 px-4 border rounded shadow-md text-slate-800 cursor-pointer hover:bg-slate-100"
             >
               Next
             </a>
             <div className="flex justify-center">
-              <a
-                href="/"
-                className="bg-white font-semibold py-2 px-4 border rounded shadow-md text-neutral-800 cursor-pointer hover:bg-slate-100"
-              >
-                1
-              </a>
-              <a
-                href="/"
-                className="bg-white font-semibold py-2 px-4 border rounded shadow-md text-neutral-800 cursor-pointer hover:bg-slate-100"
-              >
-                2
-              </a>
-              <a
-                href="/"
-                className="bg-white font-semibold py-2 px-4 border rounded shadow-md text-neutral-800 cursor-pointer hover:bg-slate-100"
-              >
-                3
-              </a>
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (pageNumber) => (
+                  <a
+                    className="bg-white font-semibold py-2 px-4 border rounded shadow-md text-neutral-800 cursor-pointer hover:bg-slate-100"
+                    key={pageNumber}
+                    onClick={() => handlePageClick(pageNumber)}
+                    disabled={pageNumber === currentPage}
+                  >
+                    {pageNumber}
+                  </a>
+                )
+              )}
             </div>
           </div>
         </div>
