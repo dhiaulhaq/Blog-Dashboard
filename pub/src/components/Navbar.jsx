@@ -1,4 +1,6 @@
-export default function Navbar({ setPage }) {
+import { Link, useNavigate } from "react-router-dom";
+
+export default function Navbar() {
   return (
     <>
       <header
@@ -7,25 +9,22 @@ export default function Navbar({ setPage }) {
       >
         <div className="max-w-5xl mx-auto flex items-center flex-wrap justify-between">
           <div className="sm:mr-8">
-            <a
-              className="flex items-center cursor-pointer"
-              onClick={() => setPage("home")}
-            >
+            <Link to={"/"} className="flex items-center cursor-pointer">
               <span className="text-xl text-orange-500 font-bold self-center">
                 Hacktiv Blog
               </span>
-            </a>
+            </Link>
           </div>
           <nav
             id="menu"
             className="justify-end order-last md:order-none items-center flex-grow w-full md:w-auto md:flex hidden mt-2 md:mt-0"
           >
-            <a
-              onClick={() => setPage("post")}
+            <Link
+              to={"/1"}
               className="block mt-4 md:inline-block md:mt-0 font-medium text-neutral-900 hover:text-orange-400 text-base mr-4 cursor-pointer"
             >
               Login
-            </a>
+            </Link>
           </nav>
           <div
             id="menu-toggle"

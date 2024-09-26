@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
 import axios from "axios";
-import Card from "./Card";
+import Card from "../components/Card";
 
-export default function Home({ setPage, baseUrl }) {
+export default function Home({ baseUrl }) {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
@@ -47,9 +45,6 @@ export default function Home({ setPage, baseUrl }) {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar setPage={setPage} />
-
       {/* Main */}
       <main className="mx-7 lg:mx-6 mt-32 flex-grow">
         <div className="max-w-5xl mx-auto">
@@ -64,6 +59,7 @@ export default function Home({ setPage, baseUrl }) {
               />
             </div>
 
+            {/* Filter */}
             <div className="relative mr-5">
               <select
                 id="Offer"
@@ -97,6 +93,7 @@ export default function Home({ setPage, baseUrl }) {
               </svg>
             </div>
 
+            {/* Sort */}
             <div className="relative">
               <svg
                 className="absolute top-1/2 -translate-y-1/2 left-4 z-50"
@@ -172,9 +169,6 @@ export default function Home({ setPage, baseUrl }) {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </>
   );
 }

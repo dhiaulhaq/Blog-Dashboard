@@ -1,12 +1,6 @@
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-
-export default function Post({ setPage, baseUrl }) {
+export default function Post({ baseUrl }) {
   return (
     <>
-      {/* Navbar */}
-      <Navbar setPage={setPage} />
-
       {/* Main */}
       <main className="mx-7 lg:mx-6 mt-32 flex-grow">
         <article className="max-w-5xl mx-auto">
@@ -122,9 +116,6 @@ export default function Post({ setPage, baseUrl }) {
           </div>
         </article>
       </main>
-
-      {/* Footer */}
-      <Footer />
     </>
   );
 }
