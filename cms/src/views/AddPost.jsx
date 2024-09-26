@@ -111,7 +111,7 @@ export default function AddPost() {
                 </div>
                 <div className="col-6">
                   <button
-                    className="btn btn-lg btn-primary rounded-pill w-100 p-2"
+                    className="btn btn-lg btn-warning rounded-pill w-100 p-2"
                     type="submit"
                     href=""
                   >

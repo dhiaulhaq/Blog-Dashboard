@@ -8,47 +8,49 @@ import Register from "../views/Register";
 import AddPost from "../views/AddPost";
 import UpdateImage from "../views/UpdateImage";
 
+const baseUrl = "https://h8-phase2-gc.vercel.app";
+
 const router = createBrowserRouter([
   {
     element: <BaseLayout />,
     children: [
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <Dashboard baseUrl={baseUrl} />,
       },
       {
         path: "/posts",
-        element: <Posts />,
+        element: <Posts baseUrl={baseUrl} />,
       },
       {
         path: "/add-post",
-        element: <AddPost />,
+        element: <AddPost baseUrl={baseUrl} />,
       },
       {
         path: "/edit-post",
-        element: <AddPost />,
+        element: <AddPost baseUrl={baseUrl} />,
       },
       {
         path: "/update-image",
-        element: <UpdateImage />,
+        element: <UpdateImage baseUrl={baseUrl} />,
       },
       {
         path: "/categories",
-        element: <Categories />,
+        element: <Categories baseUrl={baseUrl} />,
       },
       {
         path: "/add-user",
-        element: <Register />,
+        element: <Register baseUrl={baseUrl} />,
       },
       {
         path: "/logout",
-        element: <Login />,
+        element: <Login baseUrl={baseUrl} />,
       },
     ],
   },
   {
     path: "/",
-    element: <Login />,
+    element: <Login baseUrl={baseUrl} />,
   },
 ]);
 

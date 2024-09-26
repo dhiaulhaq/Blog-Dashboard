@@ -1,79 +1,79 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Table from "../components/Table";
+import axios from "axios";
 
-export default function Posts() {
+export default function Posts({ baseUrl }) {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  async function fetchPosts() {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.get(`${baseUrl}/apis/pub/blog/posts`);
+
+      setPosts(data.data.query);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <>
       {/* Posts Section */}
-      <section
-        className="col-md-9 ms-sm-auto col-lg-10 px-md-4"
-        id="product-section"
-      >
-        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 className="display-2">Posts</h1>
-          <Link to={"/add-post"}>
-            <button className="btn btn-primary rounded-pill" id="new-product">
-              <span class="icon material-symbols-outlined">add</span> New Post
-            </button>
-          </Link>
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <b className="text-4xl">Loading....</b>
         </div>
-        <div className="row">
-          <div className="col-12 table-responsive">
-            <table className="table align-middle">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col" width="180px">
-                    Image
-                  </th>
-                  <th scope="col" width="250px">
-                    Description
-                  </th>
-                  <th scope="col">Stock</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Author</th>
-                  <th scope="col" width="50px" />
-                </tr>
-              </thead>
-              <tbody id="table-product">
-                <tr>
-                  <td scope="row">#1</td>
-                  <td className="fw-bold">MILLBERGET</td>
-                  <td>
-                    <img
-                      src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/201/1020142_PE831799_S4.jpg"
-                      className="img-fluid"
-                    />
-                  </td>
-                  <td>Swivel chair, murum black</td>
-                  <td>13</td>
-                  <td className="fw-bold">Rp1.599.000</td>
-                  <td>admin@mail.com</td>
-                  <td>
-                    <span className="d-flex">
-                      <a href="" className="ms-3">
-                        <span className="icon material-symbols-outlined text-danger">
-                          delete
-                        </span>
-                      </a>
-                      <Link to={"/edit-post"} className="ms-3">
-                        <span className="icon material-symbols-outlined text-danger">
-                          edit
-                        </span>
-                      </Link>
-                      <Link to={"/update-image"} className="ms-3">
-                        <span className="icon material-symbols-outlined text-danger">
-                          image
-                        </span>
-                      </Link>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      ) : (
+        <section
+          className="col-md-9 ms-sm-auto col-lg-10 px-md-4"
+          id="product-section"
+        >
+          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 className="display-2">Posts</h1>
+            <Link to={"/add-post"}>
+              <button className="btn btn-warning rounded-pill" id="new-product">
+                <span className="icon material-symbols-outlined">add</span> New
+                Post
+              </button>
+            </Link>
           </div>
-        </div>
-      </section>
+          <div className="row">
+            <div className="col-12 table-responsive">
+              <table className="table align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col" width="180px">
+                      Image
+                    </th>
+                    <th scope="col" width="250px">
+                      Content
+                    </th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Action</th>
+                    <th scope="col" width="50px" />
+                  </tr>
+                </thead>
+                <tbody id="table-product">
+                  {posts.map((post) => {
+                    return <Table post={post} key={post.id} />;
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
       {/* End Product Section */}
     </>
   );

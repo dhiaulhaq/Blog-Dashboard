@@ -18,20 +18,11 @@ function App() {
           />
         </div>
       </div>
-      {/* End Preloader */}
-      {/* Navbar Section */}
       <section className="container-fluid" id="home-section">
         <div className="row">
           <RouterProvider router={router} />
         </div>
       </section>
-      {/* End Navbar Section */}
-      {/* Login Section */}
-
-      {/* End Login Section */}
-      {/* Home Section */}
-
-      {/* End Home Section */}
     </>
   );
 }

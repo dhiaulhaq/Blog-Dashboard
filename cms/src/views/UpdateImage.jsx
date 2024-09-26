@@ -24,7 +24,7 @@ export default function UpdateImage() {
                   />
                 </div>
                 <button
-                  className="btn btn-lg btn-primary rounded-pill w-100 p-2 mt-3"
+                  className="btn btn-lg btn-warning rounded-pill w-100 p-2 mt-3"
                   type="submit"
                 >
                   Update Image

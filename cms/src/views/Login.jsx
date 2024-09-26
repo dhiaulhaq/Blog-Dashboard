@@ -6,17 +6,17 @@ export default function Login() {
       <section className="container" id="login-section">
         <div className="row">
           <div className="col-12 text-center">
-            <h1 className="mb-3 mt-5">Login Options</h1>
+            <h1 className="mb-3 mt-5">Hacktiv Blog Dashboard</h1>
             <span>
-              Log in and autocomplete your order with your personal data, or
-              sign up to enjoy all the benefits of an IDEA account.
+              Welcome to our special dashboard. See, create, edit, and remove
+              any content*
             </span>
           </div>
           <div className="col-12 col-lg-8 offset-lg-2 my-5">
             <div className="row">
               <div className="col-12 col-md-6 border-end p-5 text-left">
                 <img
-                  src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/561/1056141_PE848273_S4.webp"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmUqy_SZxyRxG5X8EFwFZhxLseYirbZcDzWQ&s"
                   width="350px"
                   alt="sofa"
                 />
@@ -28,8 +28,8 @@ export default function Login() {
                       Log in to your account
                     </h1>
                     <span>
-                      Log in on your profile to autocomplete your purchase order
-                      with your personal data.
+                      Log in on your profile to access full features of our
+                      site.
                     </span>
                     <div className="mb-3 mt-3">
                       <div className="d-flex justify-content-between">
@@ -81,7 +81,7 @@ export default function Login() {
                     </div>
                     <Link to={"/posts"}>
                       <button
-                        className="btn btn-lg btn-primary rounded-pill w-100 p-2"
+                        className="btn btn-lg btn-warning rounded-pill w-100 p-2"
                         type="submit"
                       >
                         Log In
