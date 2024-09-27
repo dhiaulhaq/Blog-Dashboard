@@ -1,6 +1,55 @@
+import Toastify from "toastify-js";
+import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ baseUrl }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    try {
+      let { data } = await axios.post(`${baseUrl}/apis/login`, {
+        email,
+        password,
+      });
+
+      localStorage.setItem("access_token", data.data.access_token);
+
+      navigate("/");
+
+      Toastify({
+        text: "Success Login",
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "bottom",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "#008000",
+        },
+      }).showToast();
+    } catch (error) {
+      Toastify({
+        text: error.response.data.error,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "bottom",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "#FF0000",
+        },
+      }).showToast();
+    }
+  }
+
   return (
     <>
       <section className="container" id="login-section">
@@ -45,6 +94,7 @@ export default function Login() {
                         placeholder="Enter email address ..."
                         autoComplete="off"
                         required=""
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <div className="mb-4">
@@ -61,32 +111,16 @@ export default function Login() {
                         placeholder="Enter your password ..."
                         autoComplete="off"
                         required=""
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
-                    <div className="checkbox mb-3">
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          defaultValue=""
-                          id="login-remember"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="login-remember"
-                        >
-                          Remember me
-                        </label>
-                      </div>
-                    </div>
-                    <Link to={"/posts"}>
-                      <button
-                        className="btn btn-lg btn-warning rounded-pill w-100 p-2"
-                        type="submit"
-                      >
-                        Log In
-                      </button>
-                    </Link>
+                    <button
+                      onClick={handleLogin}
+                      className="btn btn-lg btn-warning rounded-pill w-100 p-2"
+                      type="submit"
+                    >
+                      Log In
+                    </button>
                   </form>
                 </div>
               </div>

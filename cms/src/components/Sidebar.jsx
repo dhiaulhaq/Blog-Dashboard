@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.clear();
+    navigate("/login");
+  }
+
   return (
     <>
       {/* Sidebar */}
@@ -11,7 +18,7 @@ export default function Sidebar() {
         <div className="position-sticky pt-3">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <Link to={"/posts"} className="nav-link" id="nav-post">
+              <Link to={"/"} className="nav-link" id="nav-post">
                 <span className="icon material-symbols-outlined">message</span>{" "}
                 Posts
               </Link>
@@ -34,7 +41,7 @@ export default function Sidebar() {
           </h6>
           <ul className="nav flex-column mb-2">
             <li className="nav-item">
-              <Link to={"/logout"} className="nav-link" id="nav-logout">
+              <Link onClick={handleLogout} className="nav-link" id="nav-logout">
                 <span className="icon material-symbols-outlined">logout</span>{" "}
                 Logout
               </Link>
