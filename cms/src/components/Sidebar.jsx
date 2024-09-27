@@ -41,7 +41,7 @@ export default function Sidebar() {
           </h6>
           <ul className="nav flex-column mb-2">
             <li className="nav-item">
-              <Link onClick={handleLogout} className="nav-link" id="nav-logout">
+              <Link onClick={handleLogout} className="nav-link">
                 <span className="icon material-symbols-outlined">logout</span>{" "}
                 Logout
               </Link>

@@ -9,7 +9,7 @@ export default function Navbar() {
         id="navbar"
       >
         <Link
-          to={"/posts"}
+          to={"/"}
           className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6"
         >
           DASHBOARD

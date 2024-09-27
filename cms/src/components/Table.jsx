@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Table({ post }) {
+export default function Table({ post, index }) {
   const navigate = useNavigate();
 
   function handleClick(id) {
@@ -10,13 +10,13 @@ export default function Table({ post }) {
   return (
     <>
       <tr>
-        <td scope="row">{post.id}</td>
+        <td scope="row">{index + 1}</td>
         <td className="fw-bold">{post.title}</td>
         <td>
           <img src={post.imgUrl} className="img-fluid" />
         </td>
         <td>{post.content}</td>
-        <td>{post.Category.name}</td>
+        <td>{post.User.username}</td>
         <td>
           <span className="d-flex">
             <a href="" className="ms-3">
@@ -24,7 +24,7 @@ export default function Table({ post }) {
                 delete
               </span>
             </a>
-            <Link to={"/edit-post"} className="ms-3">
+            <Link to={`/edit-post/${post.id}`} className="ms-3">
               <span className="icon material-symbols-outlined text-danger">
                 edit
               </span>

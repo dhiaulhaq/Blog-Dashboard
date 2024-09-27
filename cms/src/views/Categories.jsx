@@ -1,6 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-export default function Categories() {
+export default function Categories({ baseUrl }) {
+  const [categories, setCategories] = useState([]);
+
+  async function fetchCategories() {
+    try {
+      const { data } = await axios.get(`${baseUrl}/apis/blog/categories`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.access_token}`,
+        },
+      });
+
+      setCategories(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   return (
     <>
       {/* Category Section */}
@@ -21,22 +43,14 @@ export default function Categories() {
                 </tr>
               </thead>
               <tbody id="table-category">
-                <tr>
-                  <td scope="row">#1</td>
-                  <td className="fw-bold">Furniture</td>
-                </tr>
-                <tr>
-                  <td scope="row">#2</td>
-                  <td className="fw-bold">Workspace</td>
-                </tr>
-                <tr>
-                  <td scope="row">#3</td>
-                  <td className="fw-bold">Storage</td>
-                </tr>
-                <tr>
-                  <td scope="row">#4</td>
-                  <td className="fw-bold">Textile</td>
-                </tr>
+                {categories.map((category, index) => {
+                  return (
+                    <tr>
+                      <td scope="row">{index + 1}</td>
+                      <td className="fw-bold">{category.name}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

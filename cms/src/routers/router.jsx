@@ -8,8 +8,10 @@ import Register from "../views/Register";
 import AddPost from "../views/AddPost";
 import UpdateImage from "../views/UpdateImage";
 import Toastify from "toastify-js";
+import EditPost from "../views/EditPost";
 
 const baseUrl = "https://h8-phase2-gc.vercel.app";
+// const baseUrl = "https://phase2-aio.vercel.app";
 
 const router = createBrowserRouter([
   {
@@ -48,8 +50,8 @@ const router = createBrowserRouter([
         element: <AddPost baseUrl={baseUrl} />,
       },
       {
-        path: "/edit-post",
-        element: <AddPost baseUrl={baseUrl} />,
+        path: "/edit-post/:id",
+        element: <EditPost baseUrl={baseUrl} />,
       },
       {
         path: "/update-image",
@@ -88,10 +90,6 @@ const router = createBrowserRouter([
 
       return null;
     },
-  },
-  {
-    path: "/logout",
-    element: <Login baseUrl={baseUrl} />,
   },
 ]);
 

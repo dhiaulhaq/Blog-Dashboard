@@ -11,9 +11,15 @@ export default function Posts({ baseUrl }) {
     try {
       setLoading(true);
 
-      const { data } = await axios.get(`${baseUrl}/apis/pub/blog/posts`);
+      const { data } = await axios.get(`${baseUrl}/apis/blog/posts`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.access_token}`,
+        },
+      });
 
-      setPosts(data.data.query);
+      console.log(data);
+
+      setPosts(data.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -59,14 +65,14 @@ export default function Posts({ baseUrl }) {
                     <th scope="col" width="250px">
                       Content
                     </th>
-                    <th scope="col">Category</th>
+                    <th scope="col">Author</th>
                     <th scope="col">Action</th>
                     <th scope="col" width="50px" />
                   </tr>
                 </thead>
                 <tbody id="table-product">
-                  {posts.map((post) => {
-                    return <Table post={post} key={post.id} />;
+                  {posts.map((post, index) => {
+                    return <Table post={post} index={index} key={post.id} />;
                   })}
                 </tbody>
               </table>
