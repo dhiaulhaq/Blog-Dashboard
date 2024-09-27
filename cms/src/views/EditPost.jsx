@@ -19,6 +19,8 @@ export default function EditPost({ baseUrl }) {
         categoryId: +categoryId,
       };
 
+      console.log(body);
+
       const { data } = await axios.put(
         `${baseUrl}/apis/blog/posts/${id}`,
         body,
@@ -29,9 +31,8 @@ export default function EditPost({ baseUrl }) {
         }
       );
 
-      navigate("/");
       Toastify({
-        text: `Success update ${data.data.title}`,
+        text: `Success update post`,
         duration: 3000,
         destination: "https://github.com/apvarun/toastify-js",
         newWindow: true,
@@ -43,6 +44,8 @@ export default function EditPost({ baseUrl }) {
           background: "#008000",
         },
       }).showToast();
+
+      navigate("/");
     } catch (error) {
       Toastify({
         text: error.response.data.error,
@@ -62,8 +65,12 @@ export default function EditPost({ baseUrl }) {
 
   async function fetchPost() {
     try {
-      const { data } = await axios.get(`${baseUrl}/apis/blog/posts/${id}`);
-      console.log(id);
+      const { data } = await axios.get(`${baseUrl}/apis/blog/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.access_token}`,
+        },
+      });
+      console.log(data);
 
       setPost(data.data);
     } catch (error) {

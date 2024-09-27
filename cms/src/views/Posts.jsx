@@ -72,7 +72,15 @@ export default function Posts({ baseUrl }) {
                 </thead>
                 <tbody id="table-product">
                   {posts.map((post, index) => {
-                    return <Table post={post} index={index} key={post.id} />;
+                    return (
+                      <Table
+                        baseUrl={baseUrl}
+                        post={post}
+                        index={index}
+                        key={post.id}
+                        fetchPosts={fetchPosts}
+                      />
+                    );
                   })}
                 </tbody>
               </table>
