@@ -19,8 +19,6 @@ export default function EditPost({ baseUrl }) {
         categoryId: +categoryId,
       };
 
-      console.log(body);
-
       const { data } = await axios.put(
         `${baseUrl}/apis/blog/posts/${id}`,
         body,

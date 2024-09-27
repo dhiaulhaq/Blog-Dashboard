@@ -38,8 +38,6 @@ export default function Table({ baseUrl, post, index, fetchPosts }) {
         },
       }).showToast();
     } catch (error) {
-      console.log(error);
-
       Toastify({
         text: error.response.data.error,
         duration: 3000,
@@ -78,7 +76,7 @@ export default function Table({ baseUrl, post, index, fetchPosts }) {
                 edit
               </span>
             </Link>
-            <Link to={"/update-image"} className="ms-3">
+            <Link to={`/update-image/${post.id}`} className="ms-3">
               <span className="icon material-symbols-outlined text-danger">
                 image
               </span>

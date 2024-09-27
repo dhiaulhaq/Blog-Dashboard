@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         element: <EditPost baseUrl={baseUrl} />,
       },
       {
-        path: "/update-image",
+        path: "/update-image/:id",
         element: <UpdateImage baseUrl={baseUrl} />,
       },
       {
