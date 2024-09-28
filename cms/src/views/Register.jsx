@@ -71,7 +71,7 @@ export default function Register({ baseUrl }) {
           <div className="col-12 col-md-6">
             <div className="pt-3 pb-2 mb-3 border-bottom">
               <form onSubmit={handleSubmit} id="register-form">
-                <h1 className="h3 mb-3 display-1">Register User</h1>
+                <h1 className="h3 mb-3 display-1">Register Staff</h1>
                 <div className="mb-3">
                   <div className="d-flex justify-content-between">
                     <label htmlFor="register-username">Username</label>
@@ -118,32 +118,38 @@ export default function Register({ baseUrl }) {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="register-phone">Phone Number</label>
+                  <div className="d-flex justify-content-between">
+                    <label htmlFor="register-phone">Phone Number</label>
+                    <label className="text-danger text-end fw-bold">*</label>
+                  </div>
                   <input
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     type="text"
                     className="form-control"
                     id="register-phone"
-                    placeholder="Enter phone number (optional) ..."
+                    placeholder="Enter phone number ..."
                     autoComplete="off"
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="register-address">Address</label>
+                  <div className="d-flex justify-content-between">
+                    <label htmlFor="register-address">Address</label>
+                    <label className="text-danger text-end fw-bold">*</label>
+                  </div>
                   <textarea
                     onChange={(e) => setAddress(e.target.value)}
                     id="register-address"
                     className="form-control"
                     rows={3}
-                    placeholder="Enter address (optional) ..."
+                    placeholder="Enter address ..."
                     autoComplete="off"
                   />
                 </div>
                 <button
-                  className="btn btn-lg btn-primary rounded-pill w-100 p-2 mt-3"
+                  className="btn btn-lg btn-warning rounded-pill w-100 p-2 mt-3"
                   type="submit"
                 >
-                  Sign Up
+                  Submit
                 </button>
               </form>
             </div>

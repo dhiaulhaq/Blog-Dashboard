@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 export default function UpdateImage({ baseUrl }) {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
   async function handleUpload(e) {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -53,12 +55,10 @@ export default function UpdateImage({ baseUrl }) {
           background: "#FF0000",
         },
       }).showToast();
+    } finally {
+      setIsLoading(false);
     }
   }
-
-  // useEffect(() => {
-  //   console.log(file);
-  // }, [file]);
 
   return (
     <>
@@ -72,7 +72,6 @@ export default function UpdateImage({ baseUrl }) {
             <div className="pt-3 pb-2 mb-3">
               <form onSubmit={handleUpload} id="register-form">
                 <h1 className="h3 mb-3 display-1">Update Image</h1>
-                {/* <div class="mb-3"> */}
                 <div className="input-group mb-3">
                   <input
                     onChange={(e) => setFile(e.target.files[0])}
@@ -86,10 +85,10 @@ export default function UpdateImage({ baseUrl }) {
                 <button
                   className="btn btn-lg btn-warning rounded-pill w-100 p-2 mt-3"
                   type="submit"
+                  disabled={isLoading}
                 >
-                  Update Image
+                  {isLoading ? "Loading..." : "Update Image"}{" "}
                 </button>
-                {/* </div> */}
               </form>
             </div>
           </div>

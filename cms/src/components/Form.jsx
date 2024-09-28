@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 export default function Form({
   baseUrl,
@@ -109,14 +108,16 @@ export default function Form({
                 ></textarea>
               </div>
               <div className="mb-3">
-                <label htmlFor="product-image">Image</label>
+                <label htmlFor="product-image">
+                  Image <span className="text-danger fw-bold">*</span>
+                </label>
                 <input
                   onChange={(e) => setImgUrl(e.target.value)}
                   value={imgUrl}
                   type="text"
                   className="form-control"
                   id="product-image"
-                  placeholder="Enter product image url"
+                  placeholder="Enter post image url"
                   autoComplete="off"
                 />
               </div>
