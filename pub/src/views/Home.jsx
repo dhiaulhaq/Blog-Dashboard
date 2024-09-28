@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import pacmanLoad from "../components/assets/Bean Eater@1x-1.0s-200px-200px.svg";
 import Card from "../components/Card";
 
 export default function Home({ baseUrl }) {
@@ -129,8 +130,8 @@ export default function Home({ baseUrl }) {
 
           {/* Loading and Card Grid */}
           {loading ? (
-            <div className="flex justify-center items-center h-screen">
-              <b className="text-4xl">Loading....</b>
+            <div className="mt-32 flex justify-center items-center">
+              <img src={pacmanLoad} />
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
