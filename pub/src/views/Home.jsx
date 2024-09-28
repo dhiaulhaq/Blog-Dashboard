@@ -19,7 +19,6 @@ export default function Home({ baseUrl }) {
       const { data } = await axios.get(
         `${baseUrl}/apis/pub/blog/posts?q=${search}&i=${filter}&limit=9&page=${currentPage}&sort=${sort}`
       );
-      console.log(data);
 
       setPosts(data.data.query);
       setTotalPages(data.data.pagination.totalPage);
@@ -53,9 +52,10 @@ export default function Home({ baseUrl }) {
       {/* Main */}
       <main className="mx-7 lg:mx-6 mt-32 flex-grow">
         <div className="max-w-5xl mx-auto">
-          {/* Search Bar */}
-          <div className="flex justify-between mb-10">
-            <div className="w-full space-y-3 mr-5">
+          {/* Search Bar, Filter, Sort */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mb-10">
+            {/* Search Bar */}
+            <div className="flex-grow w-full">
               <input
                 type="text"
                 className="h-12 border border-gray-300 text-gray-900 pl-7 text-base font-normal leading-7 rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white transition-all duration-500 hover:border-gray-400 hover:bg-gray-50 focus-within:bg-gray-50"
@@ -65,13 +65,13 @@ export default function Home({ baseUrl }) {
             </div>
 
             {/* Filter */}
-            <div className="relative mr-5">
+            <div className="relative w-full sm:w-auto">
               <select
-                id="Offer"
-                className="h-12 border border-gray-300 text-gray-900 text-base font-normal leading-7 rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white transition-all duration-500 hover:border-gray-400 hover:bg-gray-50 focus-within:bg-gray-50"
+                id="Filter"
+                className="h-12 pl-7 border border-gray-300 text-gray-900 text-base font-normal leading-7 rounded-full block w-full sm:w-auto py-2.5 px-4 appearance-none relative focus:outline-none bg-white transition-all duration-500 hover:border-gray-400 hover:bg-gray-50 focus-within:bg-gray-50"
                 onChange={(e) => setFilter(e.target.value)}
               >
-                <option value={""}>Sort by Category</option>
+                <option value={""}>Filter by Category</option>
                 {categories.map((category) => {
                   return (
                     <option key={category.id} value={category.name}>
@@ -81,7 +81,7 @@ export default function Home({ baseUrl }) {
                 })}
               </select>
               <svg
-                className="absolute top-1/2 -translate-y-1/2 right-4 z-50"
+                className="absolute top-1/2 -translate-y-1/2 right-4 z-10"
                 width={16}
                 height={16}
                 viewBox="0 0 16 16"
@@ -99,9 +99,9 @@ export default function Home({ baseUrl }) {
             </div>
 
             {/* Sort */}
-            <div className="relative">
+            <div className="relative w-full sm:w-auto">
               <svg
-                className="absolute top-1/2 -translate-y-1/2 left-4 z-50"
+                className="absolute top-1/2 -translate-y-1/2 left-4 z-10"
                 width={20}
                 height={20}
                 viewBox="0 0 20 20"
@@ -116,15 +116,18 @@ export default function Home({ baseUrl }) {
                 />
               </svg>
               <select
-                id="Offer"
-                className="h-12 border border-gray-300 text-gray-900 pl-11 text-base font-normal leading-7 rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white transition-all duration-500 hover:border-gray-400 hover:bg-gray-50 focus-within:bg-gray-50"
+                id="Sort"
+                className="h-12 border border-gray-300 text-gray-900 pl-11 text-base font-normal leading-7 rounded-full block w-full sm:w-auto py-2.5 px-4 appearance-none relative focus:outline-none bg-white transition-all duration-500 hover:border-gray-400 hover:bg-gray-50 focus-within:bg-gray-50"
                 onChange={(e) => setSort(e.target.value)}
               >
+                <option value={"ASC"}>Sort</option>
                 <option value="ASC">ASC</option>
                 <option value="DESC">DESC</option>
               </select>
             </div>
           </div>
+
+          {/* Loading and Card Grid */}
           {loading ? (
             <div className="flex justify-center items-center h-screen">
               <b className="text-4xl">Loading....</b>
@@ -138,34 +141,69 @@ export default function Home({ baseUrl }) {
             </div>
           )}
 
+          {/* Pagination */}
           <div className="mt-10 flow-root">
             <a
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="float-left bg-white font-semibold py-2 px-4 border rounded shadow-md text-slate-800 cursor-pointer hover:bg-slate-100"
+              onClick={() => {
+                if (currentPage !== 1) setCurrentPage(currentPage - 1);
+              }}
+              className={`float-left font-semibold py-2 px-4 border rounded shadow-md text-slate-800 ${
+                currentPage === 1
+                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  : "bg-white cursor-pointer hover:bg-slate-100"
+              }`}
             >
               Previous
             </a>
+
             <a
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="float-right bg-white font-semibold py-2 px-4 border rounded shadow-md text-slate-800 cursor-pointer hover:bg-slate-100"
+              onClick={() => {
+                if (currentPage !== totalPages) setCurrentPage(currentPage + 1);
+              }}
+              className={`float-right font-semibold py-2 px-4 border rounded shadow-md text-slate-800 ${
+                currentPage === totalPages
+                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  : "bg-white cursor-pointer hover:bg-slate-100"
+              }`}
             >
               Next
             </a>
+
             <div className="flex justify-center">
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                (pageNumber) => (
-                  <a
-                    className="bg-white font-semibold py-2 px-4 border rounded shadow-md text-neutral-800 cursor-pointer hover:bg-slate-100"
-                    key={pageNumber}
-                    onClick={() => handlePageClick(pageNumber)}
-                    disabled={pageNumber === currentPage}
-                  >
-                    {pageNumber}
-                  </a>
-                )
-              )}
+              {Array.from({ length: totalPages }, (_, index) => {
+                const pageNumber = index + 1;
+
+                const maxPagesToShow = 5;
+                const halfPages = Math.floor(maxPagesToShow / 2);
+                let startPage = Math.max(currentPage - halfPages, 1);
+                let endPage = Math.min(currentPage + halfPages, totalPages);
+
+                if (currentPage <= halfPages) {
+                  endPage = Math.min(
+                    startPage + maxPagesToShow - 1,
+                    totalPages
+                  );
+                } else if (currentPage >= totalPages - halfPages) {
+                  startPage = Math.max(endPage - maxPagesToShow + 1, 1);
+                }
+
+                if (pageNumber >= startPage && pageNumber <= endPage) {
+                  return (
+                    <a
+                      className={`${
+                        pageNumber === currentPage
+                          ? "bg-orange-400 font-semibold py-2 px-4 border rounded shadow-md text-white cursor-default disabled"
+                          : "bg-white font-semibold py-2 px-4 border rounded shadow-md text-neutral-800 cursor-pointer hover:bg-slate-100"
+                      }`}
+                      key={pageNumber}
+                      onClick={() => handlePageClick(pageNumber)}
+                    >
+                      {pageNumber}
+                    </a>
+                  );
+                }
+                return null;
+              })}
             </div>
           </div>
         </div>
