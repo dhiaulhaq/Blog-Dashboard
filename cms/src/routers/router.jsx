@@ -1,6 +1,5 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import BaseLayout from "../views/BaseLayout";
-import Dashboard from "../views/Dashboard";
 import Login from "../views/Login";
 import Posts from "../views/Posts";
 import Categories from "../views/Categories";
@@ -37,10 +36,6 @@ const router = createBrowserRouter([
       return null;
     },
     children: [
-      {
-        path: "/dashboard",
-        element: <Dashboard baseUrl={baseUrl} />,
-      },
       {
         path: "/",
         element: <Posts baseUrl={baseUrl} />,
