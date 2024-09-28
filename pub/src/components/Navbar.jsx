@@ -20,7 +20,7 @@ export default function Navbar() {
           {/* Navbar Links */}
           <nav id="menu" className="flex items-center">
             <Link
-              to={"/1"}
+              to={"https://hacktivblog-dashboard.vercel.app/login"}
               target="_blank"
               className="font-medium text-neutral-900 hover:text-orange-400 text-base cursor-pointer"
             >
